@@ -51,7 +51,12 @@ const ProjectsSection = () => {
     <section
       className="project-area2 overflow-hidden"
       id="project-sec"
-      data-background="https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg"
+      style={{
+        backgroundImage:
+          "url('https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
       <div className="title-area mb-0">
         <div className="shadow-title">Our Projects</div>
@@ -72,7 +77,12 @@ const ProjectsSection = () => {
             <SwiperSlide key={index}>
               <div
                 className="project-item"
-                data-background={project.img}
+                style={{
+                  backgroundImage: `url(${project.img})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  height: "600px", // optional, adjust height
+                }}
               >
                 <div className="box-content">
                   <p className="box-subtitle">{project.subtitle}</p>

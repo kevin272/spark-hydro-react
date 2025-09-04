@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.min.css";
+import Breadcrumb from "../components/Breadcrumb";
 
 const Projects = () => {
   const images = [
@@ -25,26 +26,7 @@ const Projects = () => {
 
   return (
     <>
-      <div
-        className="breadcumb-wrapper"
-        style={{
-          backgroundImage:
-            "url('https://www.sparkhydro.com/wp-content/uploads/2024/11/imager-3.png')",
-        }}
-      >
-        <div className="container">
-          <div className="breadcumb-content">
-            <h1 className="breadcumb-title">Gallery</h1>
-            <ul className="breadcumb-menu">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>Gallery</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
+      <Breadcrumb title="Gallery" />
       <section className="overflow-hidden space" id="project-sec">
         <div className="container">
           <div className="row gy-4">

@@ -48,7 +48,7 @@ const AboutSection = () => (
               <p className="box-text">Managing Director, Spark Hydro</p>
             </div>
             <div className="btn-group mt-30 justify-content-start">
-              <a href="contact.html" className="th-btn black-btn th-icon">
+              <a href="/contact" className="th-btn black-btn th-icon">
                 <span className="btn-text" data-back="More About Us" data-front="More About Us" />
                 <i className="fa-regular fa-arrow-right ms-2" />
               </a>

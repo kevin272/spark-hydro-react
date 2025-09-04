@@ -83,7 +83,7 @@ const HeroSection = () => {
             </span>
           </p>
 
-          <a href="contact.html" className="th-btn style2 th-icon">
+          <a href="/contact" className="th-btn style2 th-icon">
             <span
               className="btn-text"
               data-back="Discover more"
@@ -91,7 +91,7 @@ const HeroSection = () => {
             ></span>
             <i className="fa-regular fa-arrow-right ms-2"></i>
           </a>
-          <a href="contact.html" className="th-btn style2 th-icon">
+          <a href="/contact" className="th-btn style2 th-icon">
             <span
               className="btn-text"
               data-back="Partner with us"

@@ -1,17 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import useExternalScripts from "./utils/useExternalScripts";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Services from "./pages/Services";
 import Careers from "./pages/Careers";
+import useExternalScripts from "./utils/useExternalScripts";
 
 export default function App() {
-
-useExternalScripts([
+  useExternalScripts([
     "/assets/js/vendor/jquery-3.7.1.min.js",
     "/assets/js/bootstrap.min.js",
     "/assets/js/swiper-bundle.min.js",
@@ -28,22 +26,21 @@ useExternalScripts([
     "/assets/js/SplitText.min.js",
     "/assets/js/lenis.min.js",
     "/assets/js/main.js",
-    "/assets/js/app.min.js"
+    "/assets/js/app.min.js",
   ]);
 
   return (
-    
     <Router>
-      <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/gallery" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/service" element={<Services />} />
-        <Route path= "/careers" element={<Careers/>} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/gallery" element={<Projects />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/service" element={<Services />} />
+          <Route path="/careers" element={<Careers />} />
+        </Route>
       </Routes>
-      <Footer />
     </Router>
   );
 }

@@ -5,7 +5,8 @@ import Goals from '../components/Goals';
 import ContactArea from '../components/Contact';
 import ProjectsSection from '../components/Projects';
 import HeroSection from '../components/Hero';
-import Header from '../components/Header';
+import HeaderLayout2 from '../components/HeaderLayout2';
+import ServicesSection from '../components/HomePage/ServicesSection';
 
 const Home = () => {
   return (
@@ -226,7 +227,7 @@ const Home = () => {
         <i className="fal fa-times" />
       </button>
       <div className="mobile-logo">
-        <a href="index.html">
+        <a href="/">
           <img
             src="assets/img/logo.svg"
             alt="Spark Hydroelectric Company Limited Company "
@@ -236,10 +237,10 @@ const Home = () => {
       <div className="th-mobile-menu">
         <ul>
           <li>
-            <a href="index.html">Home</a>
+            <a href="/">Home</a>
           </li>
           <li>
-            <a href="about.html">About Us</a>
+            <a href="/about">About Us</a>
           </li>
           <li className="menu-item-has-children">
             <a href="#">Projects</a>
@@ -260,7 +261,7 @@ const Home = () => {
                   </ul>
               </li> */}
           <li>
-            <a href="contact.html">Contact</a>
+            <a href="/contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -269,7 +270,7 @@ const Home = () => {
   {/*==============================
 	Header Area
 ==============================*/}
-<Header/>
+<HeaderLayout2/>
   {/*==============================
 Hero Area
 ==============================*/}
@@ -478,7 +479,7 @@ About Area
             environment.
           </p>
           <div className="btn-group justify-content-between align-items-start">
-            <a href="about.html" className="th-btn black-btn style1 th-icon">
+            <a href="/about" className="th-btn black-btn style1 th-icon">
               <span
                 className="btn-text"
                 data-back="More About Us"
@@ -510,167 +511,7 @@ About Area
   {/*==============================
 Service Area  
 ==============================*/}
-  <section
-    className="overflow-hidden space"
-    data-bg-src="https://images.unsplash.com/photo-1751780247095-651fc13047ff?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-  >
-    <div className="row justify-content-center align-items-center">
-      <div className="col-xl-5">
-        <div className="title-area text-center">
-          <span className="sub-title">Our Services</span>
-          <h2 className="sec-title ">
-            Specialized Hydropower Solutions for Nepal’s Energy Future
-          </h2>
-        </div>
-      </div>
-    </div>
-    <div className="slider-area">
-      <div
-        className="swiper th-slider has-shadow"
-        id="serviceSlide2"
-        data-slider-options='{"loop":true,"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"},"1400":{"slidesPerView":"4"}}}'
-      >
-        <div className="swiper-wrapper">
-          <div className="swiper-slide">
-            <div className="service-box">
-              <div className="box-content">
-                <div className="box-icon">
-                  <img src="assets/img/icon/service_1_1.svg" alt="Icon" />
-                </div>
-                <h3 className="box-title">
-                  <a href="service-details.html">
-                    Hydrology &amp; Feasibility Studies
-                  </a>
-                </h3>
-                <p className="box-text">
-                  Our expert team conducts in-depth river flow, topography, and
-                  resource assessments to design bankable, sustainable
-                  hydropower projects.
-                </p>
-                <a
-                  href="service.html"
-                  className="th-btn border-btn th-icon fw-medium text-uppercase"
-                >
-                  <span
-                    className="btn-text"
-                    data-back="Vew Details"
-                    data-front="Vew Details"
-                  />
-                  <i className="fa-regular fa-arrow-right ms-2" />{" "}
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="swiper-slide">
-            <div className="service-box">
-              <div className="box-content">
-                <div className="box-icon">
-                  <img src="assets/img/icon/service_1_2.svg" alt="Icon" />
-                </div>
-                <h3 className="box-title">
-                  <a href="service-details.html">
-                    {" "}
-                    Licensing &amp; Environmental Compliance
-                  </a>
-                </h3>
-                <p className="box-text">
-                  From Environmental Impact Assessments (EIA) to government
-                  approvals, we manage every regulatory requirement with
-                  precision and transparency.
-                </p>
-                <a
-                  href="service.html"
-                  className="th-btn border-btn th-icon fw-medium text-uppercase"
-                >
-                  <span
-                    className="btn-text"
-                    data-back="Vew Details"
-                    data-front="Vew Details"
-                  />
-                  <i className="fa-regular fa-arrow-right ms-2" />{" "}
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="swiper-slide">
-            <div className="service-box">
-              <div className="box-content">
-                <div className="box-icon">
-                  <img src="assets/img/icon/service_1_3.svg" alt="Icon" />
-                </div>
-                <h3 className="box-title">
-                  <a href="service-details.html"> Engineering &amp; Design</a>
-                </h3>
-                <p className="box-text">
-                  Comprehensive civil, electro-mechanical, and transmission
-                  designs—optimized for performance, safety, and long-term
-                  reliability.
-                </p>
-                <a
-                  href="service.html"
-                  className="th-btn border-btn th-icon fw-medium text-uppercase"
-                >
-                  <span
-                    className="btn-text"
-                    data-back="Vew Details"
-                    data-front="Vew Details"
-                  />
-                  <i className="fa-regular fa-arrow-right ms-2" />{" "}
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="swiper-slide">
-            <div className="service-box">
-              <div className="box-content">
-                <div className="box-icon">
-                  <img src="assets/img/icon/service_1_4.svg" alt="Icon" />
-                </div>
-                <h3 className="box-title">
-                  <a href="service-details.html">
-                    Construction &amp; Commissioning
-                  </a>
-                </h3>
-                <p className="box-text">
-                  Our professional installation service ensures that your solar
-                  panels are set up efficiently and securely for maximum
-                  sunlight exposure.
-                </p>
-                <a
-                  href="service.html"
-                  className="th-btn border-btn th-icon fw-medium text-uppercase"
-                >
-                  <span
-                    className="btn-text"
-                    data-back="Vew Details"
-                    data-front="Vew Details"
-                  />
-                  <i className="fa-regular fa-arrow-right ms-2" />{" "}
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="service-arrow">
-            <div className="icon-box">
-              <button
-                data-slider-prev="#serviceSlide2"
-                className="slider-arrow default"
-              >
-                <i className="far fa-arrow-left" />
-              </button>
-              <button
-                data-slider-next="#serviceSlide2"
-                className="slider-arrow default"
-              >
-                <i className="far fa-arrow-right" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  &lt;
+<ServicesSection/>
   <div
     className="marquee-area space-extra"
     data-bg-src="https://www.sparkhydro.com/wp-content/uploads/2024/11/imager-3.png"
@@ -739,7 +580,6 @@ Project Area
    <Goals/>
 <Counter/>
   
-<Footer/>
 
   <div className="scroll-top">
     <svg
