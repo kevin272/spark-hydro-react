@@ -1,28 +1,40 @@
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import GLightbox from "glightbox";
 import "glightbox/dist/css/glightbox.min.css";
 import Breadcrumb from "../components/Breadcrumb";
+import { axiosInstance } from "../config/axios.config";
 
 const Projects = () => {
-  const images = [
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-4.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-3.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-2.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-1.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2025/01/WhatsApp-Image-2024-12-18-at-12.41.33-PM-1-1024x682-1.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-5.jpeg",
-    "https://www.sparkhydro.com/wp-content/uploads/2024/12/WhatsApp-Image-2024-12-18-at-12.41.33-PM-4.jpeg",
-  ];
+  const [images, setImages] = useState([]);
+
+  const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
 
   useEffect(() => {
-    const lightbox = GLightbox({
-      selector: ".glightbox",
-      loop: true,
-      touchNavigation: true,
-      zoomable: true,
-    });
+    const fetchGallery = async () => {
+      try {
+        const res = await axiosInstance.get("/gallery");
+        setImages(res.data.data || []);
+      } catch (err) {
+        console.error("Error fetching gallery:", err);
+      }
+    };
+
+    fetchGallery();
   }, []);
+
+  // Initialize GLightbox after images are rendered
+  useEffect(() => {
+    if (images.length > 0) {
+      const lightbox = GLightbox({
+        selector: ".glightbox",
+        loop: true,
+        touchNavigation: true,
+        zoomable: true,
+      });
+
+      return () => lightbox.destroy(); // Cleanup on unmount
+    }
+  }, [images]);
 
   return (
     <>
@@ -30,12 +42,20 @@ const Projects = () => {
       <section className="overflow-hidden space" id="project-sec">
         <div className="container">
           <div className="row gy-4">
-            {images.map((src, idx) => (
-              <div className="col-md-6 col-xl-4" key={idx}>
+            {images.map((item, idx) => (
+              <div className="col-md-6 col-xl-4" key={item._id || idx}>
                 <div className="project-item2">
-                  <a href={src} className="glightbox" data-gallery="projects">
+                  <a
+                    href={`${baseURL}${item.image}`}
+                    className="glightbox"
+                    data-gallery="projects"
+                  >
                     <div className="box-img">
-                      <img src={src} alt={`project ${idx + 1}`} />
+                      <img
+                        src={`${baseURL}${item.image}`}
+                        alt={item.title}
+                        style={{ width: "100%", display: "block" }}
+                      />
                     </div>
                   </a>
                 </div>
