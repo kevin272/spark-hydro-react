@@ -13,6 +13,9 @@ import GalleryDashboard from "./pages/Dashboardpages/GalleryDashboard";
 import TeamDashboard from "./pages/Dashboardpages/TeamDashboard";
 import GalleryForm from "./pages/Dashboardpages/GalleryForm";
 import TeamForm from "./pages/Dashboardpages/TeamForm";
+import AdminLayout from "./components/Dashboard/AdminLayout";
+import './index.css';
+
 
 export default function App() {
   return (
@@ -54,7 +57,11 @@ export function AppContent() {
         <Route path="/service" element={<Services />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin" element={<AdminDashboard />} />
+        
+      </Route>
+
+      <Route element = {<AdminLayout/>}>
+      <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/team" element={<TeamDashboard />} />
         <Route path="/admin/gallery" element={<GalleryDashboard />} />
         <Route path="/admin/gallery/add" element={<GalleryForm />} />

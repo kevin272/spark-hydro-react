@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../../config/axios.config";
+const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
+
 
 export default function TeamDashboard() {
   const [team, setTeam] = useState([]);
@@ -62,7 +64,7 @@ export default function TeamDashboard() {
                 <td>
                   {member.img ? (
                     <img
-                      src={member.img}
+                      src={`${baseURL}${member.img}`}
                       alt={member.name}
                       style={{
                         width: "60px",
