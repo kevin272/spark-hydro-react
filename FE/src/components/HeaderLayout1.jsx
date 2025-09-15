@@ -1,7 +1,31 @@
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { axiosInstance } from "../config/axios.config";
 
 export default function HeaderLayout1() {
+
+  const [projects, setProjects] = useState([]);
+
+  // Fetch projects dynamically from your API
+    useEffect(() => {
+  const fetchProjects = async () => {
+    try {
+      const baseURL = import.meta.env.VITE_API_URL || "";
+      const res = await fetch(`${baseURL}/projects`);
+      const data = await res.json();
+      if (data.success && data.data) {
+        setProjects(data.data);
+        console.log("Projects fetched:", data.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch projects:", err);
+    }
+  };
+
+  fetchProjects();
+}, []);
+
+
   useEffect(() => {
     const el = document.querySelector(".logo-bg");
     if (el && el.dataset.maskSrc) {
@@ -46,26 +70,7 @@ export default function HeaderLayout1() {
                 </ul>
               </div>
             </div>
-            <div className="col-auto">
-              <div className="social-links">
-                <span className="social-title">Follow Us On:</span>
-                <a href="https://www.facebook.com/">
-                  <i className="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.twitter.com/">
-                  <i className="fab fa-twitter"></i>
-                </a>
-                <a href="https://www.linkedin.com/">
-                  <i className="fab fa-linkedin-in"></i>
-                </a>
-                <a href="https://www.instagram.com/">
-                  <i className="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.youtube.com/">
-                  <i className="fab fa-youtube"></i>
-                </a>
-              </div>
-            </div>
+             
           </div>
         </div>
       </div>
@@ -95,13 +100,15 @@ export default function HeaderLayout1() {
                       <Link to="/about">About Us</Link>
                     </li>
                     <li className="menu-item-has-children">
-                      <a href="#">Projects</a>
-                      <ul className="sub-menu">
-                        <li>
-                          <Link to="/service">Tamor–Mewa</Link>
-                        </li>
-                      </ul>
-                    </li>
+  <a href="#">Projects</a>
+  <ul className="sub-menu">
+    {projects.map((project) => (
+      <li key={project._id}>
+        <Link to={`/projects/${project._id}`}>{project.title}</Link>
+      </li>
+    ))}
+  </ul>
+</li>
                     <li>
                       <Link to="/gallery">Gallery</Link>
                     </li>

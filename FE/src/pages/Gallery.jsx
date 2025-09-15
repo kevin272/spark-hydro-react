@@ -4,7 +4,7 @@ import "glightbox/dist/css/glightbox.min.css";
 import Breadcrumb from "../components/Breadcrumb";
 import { axiosInstance } from "../config/axios.config";
 
-const Projects = () => {
+const Gallery = () => {
   const [images, setImages] = useState([]);
 
   const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
@@ -68,4 +68,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Gallery;

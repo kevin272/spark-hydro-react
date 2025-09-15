@@ -11,16 +11,28 @@ if (!fs.existsSync(uploadsDir)) {
 // Configure storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadsDir);
+    // Default to /uploads
+    let targetDir = path.join(__dirname, '../../uploads');
+
+    // Use subfolder based on route
+    if (req.baseUrl.includes('projects')) {
+      targetDir = path.join(__dirname, '../../uploads/projects');
+    } else if (req.baseUrl.includes('gallery')) {
+      targetDir = path.join(__dirname, '../../uploads/gallery');
+    }
+
+    if (!fs.existsSync(targetDir)) {
+      fs.mkdirSync(targetDir, { recursive: true });
+    }
+
+    cb(null, targetDir);
   },
   filename: function (req, file, cb) {
-    // Create unique filename with timestamp
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    const extension = path.extname(file.originalname);
-    const name = file.fieldname + '_' + uniqueSuffix + extension;
-    cb(null, name);
+    cb(null, file.fieldname + '_' + uniqueSuffix + path.extname(file.originalname));
   }
 });
+
 
 // File filter function
 const fileFilter = (req, file, cb) => {

@@ -9,7 +9,4 @@ export default defineConfig({
     devSourcemap: true,
     preprocessorOptions: {},
   },
-  optimizeDeps: {
-    include: ['glightbox'], // optional
-  },
 });

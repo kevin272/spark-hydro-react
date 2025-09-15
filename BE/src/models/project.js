@@ -22,38 +22,24 @@ const ProjectSchema = new mongoose.Schema({
       default: false
     }
   }],
-  technologies: [String],
-  category: {
-    type: String,
-    enum: ['web', 'mobile', 'desktop', 'ai/ml', 'blockchain', 'other'],
-    default: 'web'
-  },
+  technologies: [String], // e.g., ["Turbine", "Dam Construction", "Hydraulic Modeling"]
   client: {
-    name: String,
-    industry: String,
-    website: String
+    type: String // client or owner name
+  },
+  river: {
+    type: String // e.g., "Tamor River"
+  },
+  capacityMW: {
+    type: Number // hydropower capacity in MW
   },
   duration: {
     start: Date,
-    end: Date,
-    estimatedHours: Number
-  },
-  team: [{
-    memberId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'TeamMember'
-    },
-    role: String
-  }],
-  links: {
-    live: String,
-    github: String,
-    documentation: String
+    end: Date
   },
   status: {
     type: String,
     enum: ['planning', 'in-progress', 'completed', 'on-hold'],
-    default: 'completed'
+    default: 'planning'
   },
   featured: {
     type: Boolean,
@@ -73,6 +59,7 @@ const ProjectSchema = new mongoose.Schema({
   }
 });
 
+// Update `updatedAt` on save
 ProjectSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
   next();

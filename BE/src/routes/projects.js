@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Project = require('../models/Project');
+const Project = require('../models/project');
 const { authenticateToken, requirePermission } = require('../middlewares/auth');
 const { sendResponse, sendError } = require('../utils/response');
+const { upload } = require('../middlewares/fileUpload');
+
 
 // Get all projects
 router.get('/', async (req, res) => {
@@ -16,7 +18,7 @@ router.get('/', async (req, res) => {
     if (isPublic !== 'false') filter.isPublic = true;
     
     const projects = await Project.find(filter)
-      .populate('team.memberId', 'name position avatar')
+        .populate({ path: 'team.memberId', select: 'name position avatar', strictPopulate: false })
       .sort({ featured: -1, createdAt: -1 });
       
     sendResponse(res, projects, 'Projects retrieved successfully');
@@ -25,21 +27,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get project by ID
-router.get('/:id', async (req, res) => {
-  try {
-    const project = await Project.findById(req.params.id)
-      .populate('team.memberId', 'name position avatar skills');
-      
-    if (!project) {
-      return sendError(res, 404, 'Project not found');
-    }
-    
-    sendResponse(res, project, 'Project retrieved successfully');
-  } catch (error) {
-    sendError(res, 500, 'Error fetching project', error.message);
-  }
-});
 
 // Get featured projects
 router.get('/featured/list', async (req, res) => {
@@ -55,35 +42,113 @@ router.get('/featured/list', async (req, res) => {
   }
 });
 
-// Create new project (admin endpoint)
-router.post('/', authenticateToken, requirePermission('manage-projects'), async (req, res) => {
+// Get project by ID
+router.get("/:id", async (req, res) => {
   try {
-    const project = new Project(req.body);
-    await project.save();
-    sendResponse(res, project, 'Project created successfully', 201);
-  } catch (error) {
-    sendError(res, 400, 'Error creating project', error.message);
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ success: false, message: "Project not found" });
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
-// Update project (admin endpoint)
-router.put('/:id', authenticateToken, requirePermission('manage-projects'), async (req, res) => {
-  try {
-    const project = await Project.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
-    
-    if (!project) {
-      return sendError(res, 404, 'Project not found');
+// Create new project with image upload
+router.post(
+  "/",
+  authenticateToken,
+  requirePermission("manage-projects"),
+  upload.fields([{ name: "images", maxCount: 5 }]),  // ✅ handles text + files
+  async (req, res) => {
+    try {
+      console.log("req.body:", req.body);  // debug
+      console.log("req.files:", req.files);
+
+      let { technologies, startDate, endDate, ...rest } = req.body;
+
+      // normalize technologies
+      if (technologies) {
+        if (Array.isArray(technologies)) {
+          technologies = technologies.map(t => t.trim());
+        } else if (typeof technologies === "string") {
+          technologies = technologies.split(",").map(t => t.trim());
+        }
+      }
+
+      // normalize dates
+      const duration = {
+        start: startDate ? new Date(startDate) : null,
+        end: endDate ? new Date(endDate) : null,
+      };
+
+      // handle images
+      const images = (req.files?.images || []).map(file => ({
+        url: `/uploads/${file.filename}`,
+        caption: file.originalname,
+      }));
+
+      const project = new Project({
+        ...rest,
+        technologies,
+        duration,
+        images,
+      });
+
+      await project.save();
+      sendResponse(res, project, "Project created successfully", 201);
+    } catch (error) {
+      sendError(res, 400, "Error creating project", error.message);
     }
-    
-    sendResponse(res, project, 'Project updated successfully');
-  } catch (error) {
-    sendError(res, 400, 'Error updating project', error.message);
   }
-});
+);
+
+
+
+// Update project (admin endpoint)
+router.put(
+  "/:id",
+  authenticateToken,
+  requirePermission("manage-projects"),
+  upload.array("images", 5),
+  async (req, res) => {
+    try {
+      let { technologies, startDate, endDate, ...rest } = req.body;
+
+      if (technologies) {
+        if (Array.isArray(technologies)) {
+          technologies = technologies.map(t => t.trim());
+        } else if (typeof technologies === "string") {
+          technologies = technologies.split(",").map(t => t.trim());
+        }
+      }
+
+      const duration = {
+        start: startDate ? new Date(startDate) : null,
+        end: endDate ? new Date(endDate) : null,
+      };
+
+      const images = (req.files || []).map(file => ({
+        url: `/uploads/${file.filename}`,
+        caption: file.originalname,
+      }));
+
+      const project = await Project.findByIdAndUpdate(
+        req.params.id,
+        { ...rest, technologies, duration, ...(images.length && { images }) },
+        { new: true, runValidators: true }
+      );
+
+      if (!project) {
+        return sendError(res, 404, "Project not found");
+      }
+
+      sendResponse(res, project, "Project updated successfully");
+    } catch (error) {
+      sendError(res, 400, "Error updating project", error.message);
+    }
+  }
+);
+
 
 // Delete project (admin endpoint)
 router.delete('/:id', authenticateToken, requirePermission('manage-projects'), async (req, res) => {

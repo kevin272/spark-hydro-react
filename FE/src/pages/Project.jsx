@@ -4,7 +4,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import ProjectSection from '../components/ProjectSection';
 import Footer from '../components/Footer';
 
-function Services() {
+function Project() {
     const styles = {
     container: {
       maxWidth: "1200px",
@@ -258,4 +258,4 @@ function Services() {
   );
 }
 
-export default Services;
+export default Project;

@@ -1,0 +1,21 @@
+{
+  "name": "spark-hydro-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "backend": "cd BE && npm start",
+    "frontend": "cd FE && yarn dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd BE && npm install && cd ../FE && yarn install && yarn build",
+    "start": "node BE/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.13",
+    "concurrently": "^9.2.1"
+  }
+}

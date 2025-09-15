@@ -2,9 +2,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Projects from "./pages/Projects";
+import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
-import Services from "./pages/Services";
+import Project from "./pages/Project";
 import Careers from "./pages/Careers";
 import useExternalScripts from "./utils/useExternalScripts";
 import Login from "./pages/Login";
@@ -15,6 +15,11 @@ import GalleryForm from "./pages/Dashboardpages/GalleryForm";
 import TeamForm from "./pages/Dashboardpages/TeamForm";
 import AdminLayout from "./components/Dashboard/AdminLayout";
 import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import ProjectForm from "./pages/Dashboardpages/ProjectForm";
+import ProjectDashboard from "./pages/Dashboardpages/ProjectDashboard";
+import ProjectPage from "./pages/ProjectPage";
+
 
 
 export default function App() {
@@ -52,11 +57,13 @@ export function AppContent() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/gallery" element={<Projects />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/service" element={<Services />} />
+        <Route path="/service" element={<Project />} />
         <Route path="/careers" element={<Careers />} />
         <Route path="/login" element={<Login />} />
+         <Route path="/projects/:projectId" element={<ProjectPage/>} />
+
         
       </Route>
 
@@ -66,6 +73,9 @@ export function AppContent() {
         <Route path="/admin/gallery" element={<GalleryDashboard />} />
         <Route path="/admin/gallery/add" element={<GalleryForm />} />
         <Route path="/admin/team/add" element={<TeamForm />} />
+        <Route path="/admin/projects" element={<ProjectDashboard />} />
+        <Route path="/admin/projects/add" element={<ProjectForm/>} />
+
       </Route>
 
       <Route

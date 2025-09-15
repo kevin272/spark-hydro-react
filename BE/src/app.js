@@ -55,65 +55,6 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/careers', careersRoutes);
 app.use('/api/contact', contactRoutes);
 
-// Stats endpoint (example data)
-app.get('/api/stats', (req, res) => {
-  const stats = {
-    projectsCompleted: 150,
-    happyClients: 200,
-    yearsExperience: 10,
-    teamMembers: 25
-  };
-  res.json(stats);
-});
-
-// About endpoint (example data)
-app.get('/api/about', (req, res) => {
-  const about = {
-    title: "About Our Company",
-    description: "We are a leading technology company focused on delivering innovative solutions.",
-    mission: "To provide cutting-edge technology solutions that drive business success.",
-    vision: "To be the most trusted technology partner for businesses worldwide.",
-    values: ["Innovation", "Quality", "Integrity", "Customer Focus"]
-  };
-  res.json(about);
-});
-
-// Process endpoint (example data)
-app.get('/api/process', (req, res) => {
-  const process = [
-    {
-      step: 1,
-      title: "Discovery",
-      description: "Understanding your requirements and goals"
-    },
-    {
-      step: 2,
-      title: "Planning",
-      description: "Creating a detailed project roadmap"
-    },
-    {
-      step: 3,
-      title: "Development",
-      description: "Building your solution with best practices"
-    },
-    {
-      step: 4,
-      title: "Testing",
-      description: "Ensuring quality and performance"
-    },
-    {
-      step: 5,
-      title: "Deployment",
-      description: "Launching your solution successfully"
-    },
-    {
-      step: 6,
-      title: "Support",
-      description: "Ongoing maintenance and support"
-    }
-  ];
-  res.json(process);
-});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -127,7 +68,7 @@ app.get('/api/health', (req, res) => {
 app.get('/', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: "Hemlo bebi gorl"
+    message: "Server running"
   });
 });
 
