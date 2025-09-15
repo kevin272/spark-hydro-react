@@ -7,6 +7,7 @@ const AdminHeader = [
   { name: 'Team', href: '/admin/team' },
   { name: 'Gallery', href: '/admin/gallery' },
   { name: 'Projects', href: '/admin/projects' },
+  { name: 'Messages', href: '/admin/contact' },
 ]
 
 function classNames(...classes) {

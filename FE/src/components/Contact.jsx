@@ -1,4 +1,5 @@
 import React from "react";
+import ContactForm from "./ContactPage/ContactForm";
 
 const ContactArea = () => {
   return (
@@ -26,55 +27,7 @@ const ContactArea = () => {
 
           <div className="col-lg-6">
             <div className="me-xl-5 pe-xl-5">
-              <form action="mail.php" method="POST" className="contact-form ajax-contact">
-                <span className="sub-title style1">CONTACT US</span>
-                <h2 className="mb-30">Get In Touch</h2>
-                <div className="row">
-                  <div className="col-md-6 form-group">
-                    <input type="text" placeholder="Your name" className="form-control" />
-                  </div>
-                  <div className="col-md-6 form-group">
-                    <input type="text" placeholder="Email address" className="form-control" />
-                  </div>
-                  <div className="col-md-6 form-group">
-                    <input
-                      type="tel"
-                      className="form-control"
-                      name="number"
-                      id="number"
-                      placeholder="Phone number"
-                    />
-                  </div>
-                  <div className="form-group col-md-6">
-                    <select name="subject" id="subject" className="form-select nice-select">
-                      <option value="" disabled hidden>
-                        Select an Option
-                      </option>
-                      <option value="General Inquiry">General Inquiry</option>
-                      <option value="Partnership">Partnership</option>
-                      <option value="Project Information">Project Information</option>
-                      <option value="Careers">Careers</option>
-                      <option value="Media & Press">Media & Press</option>
-                    </select>
-                  </div>
-                  <div className="form-group col-12">
-                    <textarea
-                      name="message"
-                      id="message"
-                      cols="30"
-                      rows="3"
-                      className="form-control"
-                      placeholder="Write a message"
-                    ></textarea>
-                  </div>
-                  <div className="col-12 form-group mb-0 text-center">
-                    <button className="th-btn black-btn fw-btn">
-                      <span className="btn-text" data-back="Send Messages" data-front="Send Messages"></span>
-                    </button>
-                  </div>
-                </div>
-                <p className="form-messages mb-0 mt-3"></p>
-              </form>
+              <ContactForm/>
             </div>
           </div>
         </div>

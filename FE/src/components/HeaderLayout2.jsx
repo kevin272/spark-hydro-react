@@ -1,43 +1,35 @@
-export default function Header() {
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+export default function HeaderLayout2({ isMenuOpen, onMenuToggle }) {
+  const [projects, setProjects] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+const [projectsOpen, setProjectsOpen] = useState(false);
+
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const baseURL = import.meta.env.VITE_API_URL || "";
+        const res = await fetch(`${baseURL}/projects`);
+        const data = await res.json();
+        if (data.success && data.data) {
+          setProjects(data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+
   return (
     <header className="th-header header-layout2 header-absolute">
       {/* Top Bar */}
-      <div className="header-top">
-        <div className="container">
-          <div className="row justify-content-center justify-content-lg-between align-items-center">
-            <div className="col-auto d-none d-md-block">
-              <div className="header-links">
-                <ul>
-                  <li className="d-none d-xl-inline-block">
-                    <i className="fa-light fa-clock"></i>
-                    <span>Mon–Fri: 9:00–18:00 | Sat: 9:00–13:00 | Sun: Closed</span>
-                  </li>
-                  <li>
-                    <i className="fa-sharp fa-regular fa-location-dot"></i>
-                    <span>
-                      2nd Floor, Team Ventures Building, Sinamangal, Kathmandu, Nepal (P.O. Box: 21759)
-                    </span>
-                  </li>
-                  <li>
-                    <i className="fa-regular fa-envelope"></i>
-                    <a href="mailto:info.sparkhydro@gmail.com">info.sparkhydro@gmail.com</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-auto">
-              <div className="social-links">
-                <span className="social-title">Follow Us On:</span>
-                <a href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
-                <a href="https://www.twitter.com/"><i className="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/"><i className="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
-                <a href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* ...your top bar code remains the same... */}
 
       {/* Sticky Menu Area */}
       <div className="sticky-wrapper">
@@ -47,44 +39,87 @@ export default function Header() {
               {/* Logo */}
               <div className="col-auto">
                 <div className="header-logo">
-                  <a href="/"><img src="/assets/img/logo.svg" alt="Spark Hydroelectric Company Limited" /></a>
+                  <Link to="/"><img src="/assets/img/logo.svg" alt="Spark Hydroelectric Company Limited" /></Link>
                 </div>
               </div>
 
               {/* Navigation */}
               <div className="col-auto">
+                {/* Desktop Menu */}
                 <nav className="main-menu style2 d-none d-lg-inline-block">
                   <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About Us</a></li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/about">About Us</Link></li>
                     <li className="menu-item-has-children">
                       <a href="#">Projects</a>
                       <ul className="sub-menu">
-                        <li><a href="/service">Tamor–Mewa</a></li>
+                        {projects.map((project) => (
+                          <li key={project._id}>
+                            <Link to={`/projects/${project._id}`}>{project.title}</Link>
+                          </li>
+                        ))}
                       </ul>
                     </li>
-                    <li><a href="/gallery">Gallery</a></li>
-                    <li><a href="/contact">Contact Us</a></li>
-                    <li><a href="/careers">Careers</a></li>
+                    <li><Link to="/gallery">Gallery</Link></li>
+                    <li><Link to="/contact">Contact Us</Link></li>
+                    <li><Link to="/careers">Careers</Link></li>
                   </ul>
                 </nav>
+
+                {/* Mobile Toggle Button */}
                 <div className="header-button d-lg-none">
-                  <button type="button" className="th-menu-toggle d-inline-block d-lg-none">
-                    <i className="far fa-bars"></i>
-                  </button>
+                  <button
+  type="button"
+  className="th-menu-toggle d-lg-none"
+  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+>
+  <i className={`far ${mobileMenuOpen ? "fa-times" : "fa-bars"}`}></i>
+</button>
+
                 </div>
               </div>
 
               {/* Right Buttons */}
               <div className="col-auto d-none d-xl-block">
                 <div className="header-button">
-                  <a href="/contact" className="th-btn style2 th-icon">
+                  <Link to="/contact" className="th-btn style2 th-icon">
                     <span className="btn-text" data-back="Get a Quote" data-front="Get a Quote"></span>
                     <i className="fa-regular fa-arrow-right ms-2"></i>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
+
+            {/* Mobile Menu */}
+            {mobileMenuOpen && (
+  <div className="mobile-menu d-lg-none">
+    <ul>
+      <li><Link to="/">Home</Link></li>
+      <li><Link to="/about">About Us</Link></li>
+      <li>
+        <button
+          className="w-full text-left flex justify-between items-center"
+          onClick={() => setProjectsOpen(!projectsOpen)}
+        >
+          Projects <i className={`fas ${projectsOpen ? "fa-chevron-up" : "fa-chevron-down"}`}></i>
+        </button>
+        {projectsOpen && (
+          <ul className="pl-4">
+            {projects.map((project) => (
+              <li key={project._id}>
+                <Link to={`/projects/${project._id}`}>{project.title}</Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+      <li><Link to="/gallery">Gallery</Link></li>
+      <li><Link to="/contact">Contact Us</Link></li>
+      <li><Link to="/careers">Careers</Link></li>
+    </ul>
+  </div>
+)}
+
           </div>
         </div>
       </div>

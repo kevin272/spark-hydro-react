@@ -150,7 +150,6 @@ export default function HeaderLayout1() {
           {/* Logo Background Mask */}
           <div
             className="logo-bg"
-            data-mask-src="/assets/img/logo_bg_mask.png"
           ></div>
         </div>
       </div>

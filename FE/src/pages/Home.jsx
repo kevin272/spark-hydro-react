@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Footer from '../components/Footer';
 import Counter from '../components/Counter';
 import Goals from '../components/Goals';
@@ -9,56 +9,10 @@ import HeaderLayout2 from '../components/HeaderLayout2';
 import ServicesSection from '../components/HomePage/ServicesSection';
 
 const Home = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <>
-<>
-  <meta charSet="utf-8" />
-  <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-  <title>Spark Hydroelectric Company Limited</title>
-  <meta name="author" content="themeholy" />
-  <meta
-    name="description"
-    content="Spark Hydroelectric Company Limited Company  -    "
-  />
-  <meta
-    name="keywords"
-    content="Spark Hydroelectric Company Limited Company  -    "
-  />
-  <meta name="robots" content="INDEX,FOLLOW" />
-  {/* Mobile Specific Metas */}
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
-  {/* logo.svgico in the root directory */}
-  <link rel="apple-touch-icon" sizes="57x57" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="60x60" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="114x114" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="120x120" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="144x144" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="152x152" href="assets/img/logo.svg" />
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/logo.svg" />
-  <link
-    rel="icon"
-    type="image/png"
-    sizes="192x192"
-    href="assets/img/logo.svg"
-  />
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/logo.svg" />
-  <link rel="icon" type="image/png" sizes="96x96" href="assets/img/logo.svg" />
-  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/logo.svg" />
-  <link rel="manifest" href="assets/img/logo.svg" />
-  <meta name="msapplication-TileColor" content="#ffffff" />
-  <meta
-    name="msapplication-TileImage"
-    content="assets/img/logo.svg-144x144.png"
-  />
-  <meta name="theme-color" content="#ffffff" />
-  {/*==============================
-	  Google Fonts
-	============================== */}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
   <link
@@ -218,59 +172,16 @@ const Home = () => {
       </button>
     </form>
   </div>
-  {/*==============================
-    Mobile Menu
-  ============================== */}
-  <div className="th-menu-wrapper">
-    <div className="th-menu-area text-center">
-      <button className="th-menu-toggle">
-        <i className="fal fa-times" />
-      </button>
-      <div className="mobile-logo">
-        <a href="/">
-          <img
-            src="assets/img/logo.svg"
-            alt="Spark Hydroelectric Company Limited Company "
-          />
-        </a>
-      </div>
-      <div className="th-mobile-menu">
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About Us</a>
-          </li>
-          <li className="menu-item-has-children">
-            <a href="#">Projects</a>
-            <ul className="sub-menu">
-              <li>
-                <a href="service.html">Tamor Mewa</a>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href="project.html">Gallery</a>
-          </li>
-          {/* <li className="menu-item-has-children">
-                  <a href="#">Blog</a>
-                  <ul className="sub-menu">
-                      <li><a href="blog.html">Blog</a></li>
-                      <li><a href="blog-details.html">Blog Details</a></li>
-                  </ul>
-              </li> */}
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  {/*==============================
-	Header Area
-==============================*/}
-<HeaderLayout2/>
+ 
+
+      {/*==============================
+        Header (pass toggle to header)
+      ============================== */}
+<HeaderLayout2
+  isMenuOpen={isMenuOpen}
+  onMenuToggle={() => setIsMenuOpen(!isMenuOpen)}
+/>
+
   {/*==============================
 Hero Area
 ==============================*/}
@@ -598,7 +509,7 @@ Project Area
       ></path>
     </svg>
   </div>
-</>
+
 
 </>
   );

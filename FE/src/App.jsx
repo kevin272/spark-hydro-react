@@ -19,6 +19,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import ProjectForm from "./pages/Dashboardpages/ProjectForm";
 import ProjectDashboard from "./pages/Dashboardpages/ProjectDashboard";
 import ProjectPage from "./pages/ProjectPage";
+import ContactDashboard from "./pages/Dashboardpages/ContactDashboard";
 
 
 
@@ -74,6 +75,7 @@ export function AppContent() {
         <Route path="/admin/gallery/add" element={<GalleryForm />} />
         <Route path="/admin/team/add" element={<TeamForm />} />
         <Route path="/admin/projects" element={<ProjectDashboard />} />
+        <Route path="/admin/contact" element={<ContactDashboard/>} />
         <Route path="/admin/projects/add" element={<ProjectForm/>} />
 
       </Route>

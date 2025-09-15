@@ -1,59 +1,48 @@
-// ProjectsSection.jsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-
-const projects = [
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-Hydroelectric-Project-Cover.jpg",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2024/11/imager-3.png",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2024/11/imager-3.png",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-Hydroelectric-Project-Cover.jpg",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2024/11/imager-3.png",
-  },
-  {
-    title: "Tamor Mewa",
-    subtitle: "Hydroelectric",
-    img: "https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg",
-  },
-];
+import axios from "axios";
 
 const ProjectsSection = () => {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
+
+  // Fetch public projects
+  const fetchProjects = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/projects`);
+      setProjects(res.data.data || []);
+    } catch (err) {
+      console.error("Failed to fetch projects:", err);
+      setProjects([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
+  if (loading) return <p className="p-6 text-center">Loading projects...</p>;
+  if (!projects.length) return <p className="p-6 text-center">No projects found.</p>;
+
+  // Repeat projects if less than 4 (or max slides per view)
+  const slidesPerView = 4;
+  let displayProjects = [...projects];
+  while (displayProjects.length < slidesPerView) {
+    displayProjects = displayProjects.concat(projects);
+  }
+
   return (
     <section
       className="project-area2 overflow-hidden"
       id="project-sec"
       style={{
-        backgroundImage:
-          "url('https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-hydroelectric-cover-2.jpg')",
+        backgroundImage: displayProjects[0]?.img
+          ? `url(${getImageUrl(displayProjects[0].img)})`
+          : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -70,24 +59,26 @@ const ProjectsSection = () => {
             576: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
             992: { slidesPerView: 2 },
-            1200: { slidesPerView: 4 },
+            1200: { slidesPerView: slidesPerView },
           }}
         >
-          {projects.map((project, index) => (
-            <SwiperSlide key={index}>
+          {displayProjects.map((project, idx) => (
+            <SwiperSlide key={`${project._id}-${idx}`}>
               <div
                 className="project-item"
                 style={{
-                  backgroundImage: `url(${project.img})`,
+                  backgroundImage: project.images[0]
+                    ? `url(${baseURL}${project.images[0]})`
+                    : "none",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  height: "600px", // optional, adjust height
+                  height: "600px",
                 }}
               >
                 <div className="box-content">
-                  <p className="box-subtitle">{project.subtitle}</p>
+                  <p className="box-subtitle">{project.category || project.subtitle}</p>
                   <h3 className="box-title">
-                    <a href="service.html">{project.title}</a>
+                    <a href={`/projects/${project._id}`}>{project.title}</a>
                   </h3>
                 </div>
               </div>

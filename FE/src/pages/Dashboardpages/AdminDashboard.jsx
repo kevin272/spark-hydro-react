@@ -86,17 +86,29 @@ export default function AdminDashboard() {
             <td>{admin.firstName} {admin.lastName}</td>
             <td>{admin.email}</td>
             <td>
-              <span className={`badge bg-${admin.role === "superadmin" ? "danger" : "primary"}`}>
-                {admin.role}
-              </span>
-            </td>
-            <td>
-              {admin.isActive ? (
-                <span className="badge bg-success">Yes</span>
-              ) : (
-                <span className="badge bg-secondary">No</span>
-              )}
-            </td>
+  <span
+    className={`px-3 py-1 rounded-full text-xs font-medium ${
+      admin.role === "superadmin"
+        ? "bg-red-100 text-red-700"
+        : "bg-blue-100 text-blue-700"
+    }`}
+  >
+    {admin.role}
+  </span>
+</td>
+
+<td>
+  {admin.isActive ? (
+    <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+      Yes
+    </span>
+  ) : (
+    <span className="px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
+      No
+    </span>
+  )}
+</td>
+
             <td>
               <button
                 className="btn btn-sm btn-primary me-2"
