@@ -186,32 +186,36 @@ export default function HeaderLayout1() {
                           About Us
                         </Link>
                       </li>
-                      <li
-                        className={`menu-item-has-children th-item-has-children ${
-                          projectsOpen ? "open" : ""
-                        }`}
-                      >
-                        <button
-                          className="w-full text-left flex justify-between items-center"
-                          onClick={() => setProjectsOpen(!projectsOpen)}
-                        >
-                          Projects <span className="th-mean-expand"></span>
-                        </button>
-                        {projectsOpen && (
-                          <ul className="sub-menu th-submenu">
-                            {projects.map((project) => (
-                              <li key={project._id}>
-                                <Link
-                                  to={`/projects/${project._id}`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                >
-                                  {project.title}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                      </li>
+                      <li className="menu-item-has-children th-item-has-children">
+  <a
+    href="#"
+    onClick={(e) => {
+      e.preventDefault();
+      setProjectsOpen(!projectsOpen);
+    }}
+  >
+    Projects <span className="th-mean-expand"></span>
+  </a>
+
+  {(
+    <ul
+      className="sub-menu th-submenu"
+      style={{ display: projectsOpen ? "block" : "none" }}
+    >
+      {projects.map((project) => (
+        <li key={project._id}>
+          <Link
+            to={`/projects/${project._id}`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {project.title}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )}
+</li>
+
                       <li>
                         <Link
                           to="/gallery"
