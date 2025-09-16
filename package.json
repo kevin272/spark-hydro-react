@@ -5,7 +5,7 @@
   "scripts": {
     "backend": "cd BE && npm start",
     "frontend": "cd FE && npm run dev",
-    "dev": "concurrently \"npm install\"\"npm run backend\" \"npm run frontend\"",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1",
 "build": "cd FE && npm install --include=dev && npm run build && cd ../BE && npm install"
 ,    "start": "nodemon BE/index.js"
