@@ -44,7 +44,7 @@ export default function GalleryDashboard() {
 
   return (
     <DashboardLayout
-      title="Gallery"
+      title="GalleryDashboard"
       actions={
         <button
           className="btn btn-success"

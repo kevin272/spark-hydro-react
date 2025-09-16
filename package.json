@@ -4,10 +4,10 @@
   "main": "index.js",
   "scripts": {
     "backend": "cd BE && npm start",
-    "frontend": "cd FE && yarn dev",
+    "frontend": "cd FE && npm run dev",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cd BE && npm install && cd ../FE && yarn install && yarn build",
+    "build": "cd BE && npm install && cd ../FE && npm install && npm run build",
     "start": "nodemon BE/index.js"
   },
   "keywords": [],

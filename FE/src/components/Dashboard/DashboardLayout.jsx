@@ -1,9 +1,13 @@
+import Breadcrumb from "./AdminBreadcrumb";
+
 export default function DashboardLayout({ title, actions, children }) {
   return (
+      <>
+      <Breadcrumb title={title} />
+
     <div className="container-fluid py-4">
       {/* Header Section */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2 className="fw-bold">{title}</h2>
+      <div className="d-flex justify-content-end align-items-center mb-4">
         <div>{actions}</div>
       </div>
 
@@ -12,5 +16,6 @@ export default function DashboardLayout({ title, actions, children }) {
         <div className="card-body">{children}</div>
       </div>
     </div>
+    </>
   );
 }

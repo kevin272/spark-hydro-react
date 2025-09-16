@@ -46,10 +46,10 @@ router.get('/featured/list', async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const project = await Project.findById(req.params.id);
-    if (!project) return res.status(404).json({ success: false, message: "Project not found" });
-    res.json(project);
+    if (!project) return sendError(res, 404, "Project not found");
+    sendResponse(res, project, "Project retrieved successfully");
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    sendError(res, 500, "Error fetching project", err.message);
   }
 });
 

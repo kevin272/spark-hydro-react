@@ -20,6 +20,8 @@ import ProjectForm from "./pages/Dashboardpages/ProjectForm";
 import ProjectDashboard from "./pages/Dashboardpages/ProjectDashboard";
 import ProjectPage from "./pages/ProjectPage";
 import ContactDashboard from "./pages/Dashboardpages/ContactDashboard";
+import ProjectEdit from "./pages/Dashboardpages/ProjectEdit";
+import TeamEdit from "./pages/Dashboardpages/TeamEdit";
 
 
 
@@ -71,12 +73,16 @@ export function AppContent() {
       <Route element = {<AdminLayout/>}>
       <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/team" element={<TeamDashboard />} />
+        <Route path="/admin/team/add" element={<TeamForm />} />
+        <Route path="/admin/team/edit/:id" element={<TeamEdit />} />
+
+
         <Route path="/admin/gallery" element={<GalleryDashboard />} />
         <Route path="/admin/gallery/add" element={<GalleryForm />} />
-        <Route path="/admin/team/add" element={<TeamForm />} />
         <Route path="/admin/projects" element={<ProjectDashboard />} />
         <Route path="/admin/contact" element={<ContactDashboard/>} />
         <Route path="/admin/projects/add" element={<ProjectForm/>} />
+        <Route path="/admin/projects/edit/:id" element={<ProjectEdit/>} />
 
       </Route>
 

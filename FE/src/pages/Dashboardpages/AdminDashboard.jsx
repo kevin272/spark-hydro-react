@@ -61,13 +61,6 @@ export default function AdminDashboard() {
         </button>
       }
     >
-      {/* Quick Navigation */}
-      <DashboardLinks
-        links={[
-          { label: "Manage Gallery", to: "/admin/gallery", variant: "info", icon: "📸" },
-          { label: "Manage Team", to: "/admin/team", variant: "success", icon: "👥" },
-        ]}
-      />
 
       {/* Admins Table */}
       <DashboardTable

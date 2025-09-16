@@ -28,8 +28,42 @@ const [projectsOpen, setProjectsOpen] = useState(false);
 
   return (
     <header className="th-header header-layout2 header-absolute">
-      {/* Top Bar */}
-      {/* ...your top bar code remains the same... */}
+      <div className="header-top">
+        <div className="container">
+          <div className="row justify-content-center justify-content-lg-between align-items-center">
+            <div className="col-auto d-none d-md-block">
+              <div className="header-links">
+                <ul>
+                  <li className="d-none d-xl-inline-block">
+                    <i className="fa-light fa-clock"></i>
+                    <span>Mon–Fri: 9:00–18:00 | Sat: 9:00–13:00 | Sun: Closed</span>
+                  </li>
+                  <li>
+                    <i className="fa-sharp fa-regular fa-location-dot"></i>
+                    <span>
+                      2nd Floor, Team Ventures Building, Sinamangal, Kathmandu, Nepal (P.O. Box: 21759)
+                    </span>
+                  </li>
+                  <li>
+                    <i className="fa-regular fa-envelope"></i>
+                    <a href="mailto:info.sparkhydro@gmail.com">info.sparkhydro@gmail.com</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-auto">
+              <div className="social-links">
+                <span className="social-title">Follow Us On:</span>
+                <a href="https://www.facebook.com/"><i className="fab fa-facebook-f"></i></a>
+                <a href="https://www.twitter.com/"><i className="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/"><i className="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/"><i className="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/"><i className="fab fa-youtube"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Sticky Menu Area */}
       <div className="sticky-wrapper">

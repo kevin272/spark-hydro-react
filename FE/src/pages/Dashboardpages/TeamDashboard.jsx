@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { axiosInstance } from "../../config/axios.config";
+import Breadcrumb from "../../components/Dashboard/AdminBreadcrumb";
 const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
 
 
@@ -37,10 +38,13 @@ export default function TeamDashboard() {
   };
 
   return (
+    <>
+        <Breadcrumb title="Team Dashboard" />
+
     <div className="container py-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>Team Members</h2>
-        <Link to="/admin/team/add" className="btn btn-success">
+
+      <div className="d-flex justify-content-end align-items-center mb-4">
+        <Link to="/admin/team/add" className="btn btn-success align-self-right">
           + Add Member
         </Link>
       </div>
@@ -81,7 +85,7 @@ export default function TeamDashboard() {
                 <td>{member.role}</td>
                 <td>
                   <Link
-                    to={`/team/edit/${member._id}`}
+                    to={`/admin/team/edit/${member._id}`}
                     className="btn btn-primary btn-sm me-2"
                   >
                     Edit
@@ -99,5 +103,6 @@ export default function TeamDashboard() {
         </table>
       )}
     </div>
+    </>
   );
 }

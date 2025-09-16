@@ -25,3 +25,37 @@
   padding: 0.5rem 0;
   cursor: pointer;
 }
+
+/* Fade-in animation */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Status badge */
+.status-badge {
+  color: #fff;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .th-blog.blog-single img {
+    width: 100%;
+    height: auto;
+  }
+  .share-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

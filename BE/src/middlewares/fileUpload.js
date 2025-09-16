@@ -16,9 +16,9 @@ const storage = multer.diskStorage({
 
     // Use subfolder based on route
     if (req.baseUrl.includes('projects')) {
-      targetDir = path.join(__dirname, '../../uploads/projects');
+      targetDir = path.join(__dirname, '../../uploads');
     } else if (req.baseUrl.includes('gallery')) {
-      targetDir = path.join(__dirname, '../../uploads/gallery');
+      targetDir = path.join(__dirname, '../../uploads');
     }
 
     if (!fs.existsSync(targetDir)) {

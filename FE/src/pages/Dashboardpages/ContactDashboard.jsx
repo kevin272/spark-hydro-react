@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DashboardLayout from "../../components/Dashboard/DashboardLayout";
 
 export default function ContactDashboard() {
   const [messages, setMessages] = useState([]);
   const [selectedMsg, setSelectedMsg] = useState(null);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/contact/list`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      const res = await axios.get(`${API_URL}/contact/list`, {
+        headers: { Authorization: `Bearer ${token}` },
         withCredentials: true,
       });
       setMessages(res.data.data || []);
@@ -18,50 +23,53 @@ export default function ContactDashboard() {
   };
 
   useEffect(() => {
+    if (!token) {
+      navigate("/login");
+      return;
+    }
     fetchMessages();
-  }, []);
+  }, [token, navigate]);
 
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this message?")) return;
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/contact/${id}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      await axios.delete(`${API_URL}/contact/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
-      setMessages(messages.filter((msg) => msg._id !== id));
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
       if (selectedMsg?._id === id) setSelectedMsg(null);
     } catch (err) {
       console.error("Error deleting message:", err);
+      alert(err.response?.data?.message || "Delete failed");
     }
   };
 
   const handleOpenMessage = async (msg) => {
-  setSelectedMsg(msg);
+    setSelectedMsg(msg);
 
-  if (msg.status === "new") {
-    try {
-      const res = await axios.put(
-        `${import.meta.env.VITE_API_URL}/contact/${msg._id}/status`,
-        { status: "read" },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
-      );
-      // Update local state
-      setMessages((prev) =>
-        prev.map((m) =>
-          m._id === msg._id ? { ...m, status: res.data.data.status } : m
-        )
-      );
-      setSelectedMsg((prev) => ({ ...prev, status: res.data.data.status }));
-    } catch (err) {
-      console.error("Error updating message status:", err);
+    if (msg.status === "new") {
+      try {
+        const res = await axios.put(
+          `${API_URL}/contact/${msg._id}/status`,
+          { status: "read" },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // Update local state
+        setMessages((prev) =>
+          prev.map((m) =>
+            m._id === msg._id ? { ...m, status: res.data.data.status } : m
+          )
+        );
+        setSelectedMsg((prev) => ({ ...prev, status: res.data.data.status }));
+      } catch (err) {
+        console.error("Error updating message status:", err);
+      }
     }
-  }
-};
-
+  };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Contact Messages</h1>
-
+    <DashboardLayout title="Contact Messages">
       {messages.length === 0 ? (
         <p className="text-gray-500">No messages yet.</p>
       ) : (
@@ -110,7 +118,7 @@ export default function ContactDashboard() {
 
       {/* Modal */}
       {selectedMsg && (
-        <div className="fixed inset-0 bg-white bg-opacity-10 !important flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 relative">
             {/* Close button */}
             <button
@@ -147,12 +155,14 @@ export default function ContactDashboard() {
                 </span>
               </p>
               <div className="mt-4 p-3 bg-gray-50 rounded-lg border">
-                <p className="text-gray-700 whitespace-pre-line">{selectedMsg.message}</p>
+                <p className="text-gray-700 whitespace-pre-line">
+                  {selectedMsg.message}
+                </p>
               </div>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </DashboardLayout>
   );
 }

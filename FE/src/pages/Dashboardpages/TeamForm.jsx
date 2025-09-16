@@ -5,12 +5,14 @@ import { axiosInstance } from "../../config/axios.config";
 export default function TeamForm() {
   const { id } = useParams();
   const [name, setName] = useState("");
-  const [role, setRole] = useState(""); // backend expects role, not position
-  const [img, setImg] = useState(null); // file object
-  const [preview, setPreview] = useState(""); // image preview
+  const [role, setRole] = useState("");
+  const [img, setImg] = useState(null);
+  const [preview, setPreview] = useState("");
   const [error, setError] = useState(null);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  const baseURL = import.meta.env.VITE_API_URL.replace("/api", "");
 
   // Fetch existing member (edit mode)
   useEffect(() => {
@@ -21,20 +23,20 @@ export default function TeamForm() {
           const member = res.data.data;
           setName(member.name);
           setRole(member.role);
-          setPreview(member.img ? `${member.img}` : "");
+          if (member.img) setPreview(`${baseURL}${member.img}`);
         })
         .catch((err) =>
           setError(err.response?.data?.message || "Failed to fetch member")
         );
     }
-  }, [id, token]);
+  }, [id, token, baseURL]);
 
   // Handle file selection
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImg(file);
-      setPreview(URL.createObjectURL(file)); // preview
+      setPreview(URL.createObjectURL(file));
     }
   };
 
@@ -70,49 +72,70 @@ export default function TeamForm() {
 
   return (
     <div className="container py-5">
-      <h2 className="mb-4">{id ? "Edit Team Member" : "Add Team Member"}</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
-        <div className="mb-3">
-          <label>Name</label>
-          <input
-            type="text"
-            className="form-control"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label>Role / Position</label>
-          <input
-            type="text"
-            className="form-control"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label>Avatar (Upload Image)</label>
-          <input
-            type="file"
-            className="form-control"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-          {preview && (
-            <img
-              src={preview}
-              alt="Preview"
-              style={{ marginTop: "10px", width: "100px", borderRadius: "8px" }}
-            />
+      <div className="card shadow-lg border-0 rounded-4 mx-auto" style={{ maxWidth: "600px" }}>
+        <div className="card-body p-4">
+          <h3 className="mb-4 text-center fw-bold text-primary">
+            {id ? "Edit Team Member" : "Add Team Member"}
+          </h3>
+
+          {error && (
+            <div className="alert alert-danger text-center">{error}</div>
           )}
+
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Full Name</label>
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter team member's name"
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Role / Position</label>
+              <input
+                type="text"
+                className="form-control form-control-lg"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="e.g. Backend Developer"
+                required
+              />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label fw-semibold">Avatar</label>
+              <input
+                type="file"
+                className="form-control"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+              {preview && (
+                <div className="text-center mt-3">
+                  <img
+                    src={preview}
+                    alt="Preview"
+                    className="rounded-3 shadow-sm"
+                    style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <button
+              className="btn btn-primary w-100 py-2 fw-semibold rounded-3"
+              type="submit"
+            >
+              {id ? "Update Member" : "Add Member"}
+            </button>
+          </form>
         </div>
-        <button className="btn btn-primary">
-          {id ? "Update" : "Add"}
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,20 @@
-const AboutSection = () => (
+const AboutSection = () => {
+  const DiscountAnime = ({ text }) => {
+  return (
+    <span className="discount-anime">
+      {text.split("").map((char, idx) => (
+        <span key={idx} className={`char${idx + 1}`}>
+          {char}
+        </span>
+      ))}
+    </span>
+  );
+};
+
+
+  
+  return (
+  
   <div className="about-area overflow-hidden space" id="about-sec">
     <div className="container">
       <div className="row gy-4">
@@ -14,7 +30,7 @@ const AboutSection = () => (
               <div className="discount-wrapp style2">
                 <h2 className="box-counter"><span className="counter-number">25</span></h2>
                 <div className="discount-tag">
-                  <span className="discount-anime">Spark-hydro since 2000</span>
+  <DiscountAnime text="Spark-hydro since 2000" />
                 </div>
               </div>
             </div>
@@ -58,6 +74,6 @@ const AboutSection = () => (
       </div>
     </div>
   </div>
-);
+);}
 
 export default AboutSection;

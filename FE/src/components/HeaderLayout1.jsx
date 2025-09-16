@@ -148,10 +148,9 @@ export default function HeaderLayout1() {
           </div>
 
           {/* Logo Background Mask */}
-          <div
-            className="logo-bg"
-          ></div>
+          
         </div>
+
       </div>
     </header>
   );

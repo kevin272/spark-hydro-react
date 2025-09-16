@@ -42,38 +42,43 @@ const HeroSection = () => {
         </h1>
 
         <div
-          className="hero2-image th-anim"
-          style={{ position: "relative", width: "600px", margin: "0 auto" }}
-        >
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/051/960/065/non_2x/cutout-of-a-3d-model-of-a-hydroelectric-dam-with-flowing-water-generating-sustainable-energy-surrounded-by-greenery-png.png"
-            alt=""
-            style={{
-              width: "100%",
-              height: "auto",
-              display: "block",
-              borderRadius: "20px",
-            }}
-          />
+  className="hero2-image th-anim"
+  style={{
+    position: "relative",
+    width: "100%",
+    maxWidth: "600px",
+    margin: "0 auto",
+  }}
+>
+  <img
+    src="https://static.vecteezy.com/system/resources/previews/051/960/065/non_2x/cutout-of-a-3d-model-of-a-hydroelectric-dam-with-flowing-water-generating-sustainable-energy-surrounded-by-greenery-png.png"
+    alt=""
+    style={{
+      width: "100%",
+      height: "auto",
+      display: "block",
+      borderRadius: "20px",
+    }}
+  />
+  <span
+    style={{
+      position: "absolute",
+      top: "65%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      fontFamily: "sans-serif",
+      fontWeight: 700,
+      fontSize: "20px",
+      color: "#010F1C",
+      padding: "15px 25px",
+      backgroundColor: "rgba(255,255,255,0.8)",
+      borderRadius: "10px",
+    }}
+  >
+    6719.11 GWh
+  </span>
+</div>
 
-          <span
-            style={{
-              position: "absolute",
-              top: "65%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              fontFamily: "sans-serif",
-              fontWeight: 700,
-              fontSize: "20px",
-              color: "#010F1C",
-              padding: "15px 25px",
-              backgroundColor: "rgba(255,255,255,0.8)",
-              borderRadius: "10px",
-            }}
-          >
-            6719.11 GWh
-          </span>
-        </div>
 
         <div className="hero-content">
           <p className="hero-text">
