@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cd FE && npm install --include=dev && npm run build && cd ../BE && npm install",
-    "start": "cross-env NODE_ENV=production node BE/src/app.js"
+    "start": "node BE/src/app.js"
   },
   "keywords": [],
   "author": "",
