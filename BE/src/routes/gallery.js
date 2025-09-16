@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Gallery = require('../models/Gallery');
+const Gallery = require('../models/gallery');
 const { upload } = require('../middlewares/fileUpload');
 const { authenticateToken, requirePermission } = require('../middlewares/auth');
 const { sendResponse, sendError } = require('../utils/response');
