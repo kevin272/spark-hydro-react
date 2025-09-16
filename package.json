@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "backend": "cd BE && npm start",
-    "frontend": "cd FE && npm run dev",
-    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-"build": "cd FE && npm install --include=dev && npm run build && cd ../BE && npm install"
-,    "start": "concurrently \"npm run backend\" \"npm run frontend\""
+    "build": "cd FE && npm install --include=dev && npm run build && cd ../BE && npm install",
+    "start": "cross-env NODE_ENV=production node BE/src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +13,7 @@
   "description": "",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.13",
-    "concurrently": "^9.2.1",
+    "cross-env": "^10.0.0",
     "nodemon": "^3.1.10"
   }
 }
