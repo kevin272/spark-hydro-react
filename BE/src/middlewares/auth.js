@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Admin = require('../models/Admin');
+const Admin = require('../models/admin');
 const { sendError } = require('../utils/response');
 
 // JWT secret from environment or default

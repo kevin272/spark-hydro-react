@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Admin = require('../models/Admin');
+const Admin = require('../models/admin');
 const { authenticateToken, requireRole, requirePermission } = require('../middlewares/auth');
 const { sendResponse, sendError, validateRequiredFields } = require('../utils/response');
 
