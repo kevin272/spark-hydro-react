@@ -36,16 +36,7 @@ export default function Example() {
           </div>
 
 <div className="flex flex-1 items-center justify-center relative">
-  {/* Logo on the left */}
-  <div className="absolute left-0 flex items-center pl-2 sm:pl-0">
-    <img
-      alt="Your Company"
-      src="logo.svg"
-      className="h-auto w-14"
-      href="/"
-    />
-  </div>
-
+  
   {/* Navigation links centered */}
   <div className="hidden sm:flex space-x-6">
     {AdminHeader.map((item) => {

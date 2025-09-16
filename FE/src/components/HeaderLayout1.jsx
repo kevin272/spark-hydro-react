@@ -1,41 +1,40 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../config/axios.config";
 
 export default function HeaderLayout1() {
-
   const [projects, setProjects] = useState([]);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [projectsOpen, setProjectsOpen] = useState(false);
 
-  // Fetch projects dynamically from your API
-    useEffect(() => {
-  const fetchProjects = async () => {
-    try {
-      const baseURL = import.meta.env.VITE_API_URL || "";
-      const res = await fetch(`${baseURL}/projects`);
-      const data = await res.json();
-      if (data.success && data.data) {
-        setProjects(data.data);
-        console.log("Projects fetched:", data.data);
+  // Fetch projects dynamically
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const baseURL = import.meta.env.VITE_API_URL || "";
+        const res = await fetch(`${baseURL}/projects`);
+        const data = await res.json();
+        if (data.success && data.data) {
+          setProjects(data.data);
+          console.log("Projects fetched:", data.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch projects:", err);
       }
-    } catch (err) {
-      console.error("Failed to fetch projects:", err);
-    }
-  };
+    };
+    fetchProjects();
+  }, []);
 
-  fetchProjects();
-}, []);
-
-
+  // Logo Mask Effect
   useEffect(() => {
     const el = document.querySelector(".logo-bg");
     if (el && el.dataset.maskSrc) {
       el.style.maskImage = `url(${el.dataset.maskSrc})`;
-      el.style.webkitMaskImage = `url(${el.dataset.maskSrc})`; // Safari/Chrome
+      el.style.webkitMaskImage = `url(${el.dataset.maskSrc})`;
       el.style.maskRepeat = "no-repeat";
       el.style.webkitMaskRepeat = "no-repeat";
       el.style.maskSize = "cover";
       el.style.webkitMaskSize = "cover";
-      el.style.backgroundColor = "#fff"; // fallback fill (adjust to theme)
+      el.style.backgroundColor = "#fff";
     }
   }, []);
 
@@ -70,7 +69,6 @@ export default function HeaderLayout1() {
                 </ul>
               </div>
             </div>
-             
           </div>
         </div>
       </div>
@@ -100,15 +98,17 @@ export default function HeaderLayout1() {
                       <Link to="/about">About Us</Link>
                     </li>
                     <li className="menu-item-has-children">
-  <a href="#">Projects</a>
-  <ul className="sub-menu">
-    {projects.map((project) => (
-      <li key={project._id}>
-        <Link to={`/projects/${project._id}`}>{project.title}</Link>
-      </li>
-    ))}
-  </ul>
-</li>
+                      <a href="#">Projects</a>
+                      <ul className="sub-menu">
+                        {projects.map((project) => (
+                          <li key={project._id}>
+                            <Link to={`/projects/${project._id}`}>
+                              {project.title}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </li>
                     <li>
                       <Link to="/gallery">Gallery</Link>
                     </li>
@@ -126,6 +126,7 @@ export default function HeaderLayout1() {
                   <button
                     type="button"
                     className="th-menu-toggle d-inline-block d-lg-none"
+                    onClick={() => setMobileMenuOpen(true)}
                   >
                     <i className="far fa-bars"></i>
                   </button>
@@ -147,10 +148,100 @@ export default function HeaderLayout1() {
             </div>
           </div>
 
-          {/* Logo Background Mask */}
-          
-        </div>
+          {/* Mobile Menu */}
+            {mobileMenuOpen && (
+              <div className="th-menu-wrapper th-body-visible d-lg-none">
+                <div className="th-menu-area text-center">
+                  {/* Close Button */}
+                  <button
+                    className="th-menu-toggle"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <i className="fal fa-times"></i>
+                  </button>
 
+                  {/* Mobile Logo */}
+                  <div className="mobile-logo">
+                    <Link to="/">
+                      <img
+                        src="/assets/img/logo.svg"
+                        alt="Spark Hydroelectric Company Limited"
+                      />
+                    </Link>
+                  </div>
+
+                  {/* Menu List */}
+                  <div className="th-mobile-menu">
+                    <ul>
+                      <li>
+                        <Link to="/" onClick={() => setMobileMenuOpen(false)}>
+                          Home
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/about"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          About Us
+                        </Link>
+                      </li>
+                      <li
+                        className={`menu-item-has-children th-item-has-children ${
+                          projectsOpen ? "open" : ""
+                        }`}
+                      >
+                        <button
+                          className="w-full text-left flex justify-between items-center"
+                          onClick={() => setProjectsOpen(!projectsOpen)}
+                        >
+                          Projects <span className="th-mean-expand"></span>
+                        </button>
+                        {projectsOpen && (
+                          <ul className="sub-menu th-submenu">
+                            {projects.map((project) => (
+                              <li key={project._id}>
+                                <Link
+                                  to={`/projects/${project._id}`}
+                                  onClick={() => setMobileMenuOpen(false)}
+                                >
+                                  {project.title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                      <li>
+                        <Link
+                          to="/gallery"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Gallery
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/contact"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Contact Us
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/careers"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Careers
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            )}
+        </div>
       </div>
     </header>
   );
