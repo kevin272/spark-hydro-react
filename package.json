@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "test": "echo \"Error: no test specified\" && exit 1",
 "build": "cd FE && npm install --include=dev && npm run build && cd ../BE && npm install"
-,    "start": "nodemon BE/index.js"
+,    "start": "concurrently \"npm run backend\" \"npm run frontend\""
   },
   "keywords": [],
   "author": "",
