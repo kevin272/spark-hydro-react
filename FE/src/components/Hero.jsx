@@ -29,7 +29,7 @@ const HeroSection = () => {
     >
       <div
         className="th-hero-bg"
-        data-bg-src="https://www.sparkhydro.com/wp-content/uploads/2025/01/Tamor-Mewa-Hydroelectric-Project-Cover.jpg"
+        data-bg-src="Hero.jpg"
       ></div>
 
       <div className="hero-style2">
@@ -51,7 +51,7 @@ const HeroSection = () => {
   }}
 >
   <img
-    src="https://static.vecteezy.com/system/resources/previews/051/960/065/non_2x/cutout-of-a-3d-model-of-a-hydroelectric-dam-with-flowing-water-generating-sustainable-energy-surrounded-by-greenery-png.png"
+    src="Hero2.png"
     alt=""
     style={{
       width: "100%",

@@ -19276,13 +19276,15 @@ span.select2-selection.select2-selection--single:focus {
 .counter-box .box-icon {
   width: 80px;
   height: 80px;
-  line-height: 80px;
   border-radius: 50%;
-  text-align: center;
   background: #FFFA84;
   margin-bottom: 10px;
-  /* Small devices */
+
+  display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
+
 
 @media (max-width: 767px) {
   .counter-box .box-icon {
@@ -19506,6 +19508,9 @@ span.select2-selection.select2-selection--single:focus {
   background-color: var(--white-color);
   border: 1px solid #E0E0E0;
   margin-bottom: 18px;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
   /* Medium Large devices */
 }
 
@@ -22554,6 +22559,9 @@ span.select2-selection.select2-selection--single:focus {
   z-index: 2;
   -webkit-transition: 0.4s ease-in-out;
   transition: 0.4s ease-in-out;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 .service-card .box-icon:before {
@@ -22712,6 +22720,9 @@ span.select2-selection.select2-selection--single:focus {
   line-height: 100px;
   background-color: #E9F5ED;
   border: 1px solid #B7BEC8;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 .service-box .box-icon {
@@ -22726,6 +22737,9 @@ span.select2-selection.select2-selection--single:focus {
   z-index: 2;
   -webkit-transition: 0.4s ease-in-out;
   transition: 0.4s ease-in-out;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 .service-box .box-icon img {
@@ -24615,6 +24629,9 @@ span.select2-selection.select2-selection--single:focus {
   line-height: 70px;
   border-radius: 50%;
   background: var(--theme-color);
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 @media (max-width: 991px) {
@@ -26020,6 +26037,9 @@ span.select2-selection.select2-selection--single:focus {
   position: absolute;
   left: -4px;
   top: -30px;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
   /* Medium Large devices */
   /* Large devices */
 }
@@ -26220,6 +26240,9 @@ span.select2-selection.select2-selection--single:focus {
   margin: auto auto 30px auto;
   background-color: var(--white-color);
   box-shadow: 0px 10px 50px 10px #E8E8E8;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 .process-card2 .box-icon img {
@@ -26558,6 +26581,9 @@ span.select2-selection.select2-selection--single:focus {
   text-align: center;
   border-radius: 50%;
   background: #57B33E;
+    display: flex;               /* ✅ flexbox */
+  align-items: center;         /* ✅ vertical center */
+  justify-content: center;     /* ✅ horizontal center */
 }
 
 .choose-item .box-title {
